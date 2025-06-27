@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+ <html lang="tr">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <title>Eren Uçar - Web Portfolyosu</title>
+     <link rel="stylesheet" href="./style.css">
+ </head>
+ <body>
+     <header>
+         <nav>
+             <div class="logo">Eren Uçar</div>
+             <ul>
+                 <li><a href="#home">Anasayfa</a></li>
+                 <li><a href="#about">Hakkımda</a></li>
+                 <li><a href="#portfolio">Portfolyo</a></li>
+                 <li><a href="#contact">İletişim</a></li>
+             </ul>
+         </nav>
+     </header>
+
+     <section id="home" class="hero">
+         <div class="hero-content">
+             <h1>Hoşgeldiniz!</h1>
+             <p>Merhaba ben Eren Uçar. Nişantaşı Üniversitesi'nde teknoloji ve yazılıma tutkulu bir Yönetim Bilişim Sistemleri öğrencisiyim.</p>
+             <a href="#portfolio" class="btn">Çalışmalarımı Gör</a>
+         </div>
+     </section>
+
+     <section id="about" class="about-me">
+         <h2>Hakkımda</h2>
+         <p>
+             Merhaba! Ben Nişantaşı Üniversitesi’nde Yönetim Bilişim Sistemleri 3. sınıf öğrencisiyim. Teknoloji ve yazılım geliştirme alanlarına büyük ilgi duyuyor, kendimi bu doğrultuda sürekli geliştirmeye çalışıyorum. Şu sıralar özellikle SQL ve Python üzerine yoğunlaşıyor, küçük projelerle hem pratik yapıyor hem de yetkinliğimi artırıyorum.
+         </p>
+         <p>
+             Zamanımın yarısını Veri Bilimi alanında yeni bilgiler öğrenmeye adıyorum. Öğrenmeye açık, takım çalışmasına yatkın ve çözüm odaklı bir yapıya sahibim. Teknolojinin sunduğu olanaklarla sorunlara yenilikçi çözümler üretmek beni motive ediyor. Yeni projelere, iş birliklerine ve staj fırsatlarına her zaman açığım.
+         </p>
+     </section>
+     
+     <section id="resume" class="resume">
+        <h2>Özgeçmiş</h2>
+        <a href="Eren_Uçar_CV.pdf" class="btn cv-download" download target="_blank" rel="noopener noreferrer" style="margin-bottom: 24px; display: inline-block; animation: fadeIn 1s;">
+            <i class="fas fa-file-download"></i> PDF Olarak İndir
+         </a>
+         <div class="resume-content">
+            <h3>Eğitim Bilgileri</h3>
+            <ul>
+                <li>2017-2021: Behçet Canbaz Lisesi</li>
+                <li>2022-2026: Nişantaşı Üniversitesi – Yönetim Bilişim Sistemleri (Devam ediyor)</li>
+            </ul>
+
+            <h3>Teknik Yetenekler</h3>
+            <ul>
+                <li>Orta Seviye: Python, SQL</li>
+                <li>MS Office Programları</li>
+                <li>Bilgisayar Donanımı</li>
+                <li>C/C++, Visual Studio Code</li>
+                <li>Yazılım, analiz ve sistem ekipleriyle çalışma deneyimi</li>
+            </ul>
+
+            <h3>Deneyim</h3>
+            <ul>
+                <li>2022-2024: Metrogross Market Bayrampaşa – Kasiyer
+                    <ul>
+                        <li>İnsanlarla bire bir iletişim becerileri kazanıldı.</li>
+                        <li>Satış ve pazarlama deneyimi elde edildi.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Yabancı Dil</h3>
+            <ul>
+                <li>İngilizce: B1</li>
+            </ul>
+        </div>
+    </section>
+
+     <section id="portfolio" class="portfolio">
+         <h2>Portfolyom</h2>
+         <div class="portfolio-grid">
+             <div class="project-card">
+                 <h3>Personel Maaş Takip Sistemi</h3>
+                 <p>ASP.NET ve .NET Framework kullanılarak geliştirilen, verilerini SQL Server'dan alan ve normalizasyon prensiplerine uygun olarak tasarlanmış bir veritabanına sahip, personellerin maaş ve avans bilgilerini yöneten bir web tabanlı uygulama.</p>
+                 <a href="https://github.com/eren123H/Personel-Maas-Takip" target="_blank">Projeyi Görüntüle</a>
+             </div>
+             <div class="project-card">
+                 <h3>Veri Analizi Projesi</h3>
+                 <p>Milli takım maç verileri üzerinde Excel'deki pivot tablolar kullanılarak derinlemesine analizler yapılmış ve belirli sorulara yönelik hazır çözümler sunan bir veri analizi projesi. Veriler, Excel'in güçlü görselleştirme araçlarıyla sunulmuştur.</p>
+                 <a href="https://github.com/eren123H/Veri-Analizi" target="_blank">Projeyi Görüntüle</a>
+             </div>
+             <div class="project-card">
+                 <h3>PMTP Veritabanı</h3>
+                 <p>Personel Maaş Takip Sistemi için tasarlanmış ve yönetilen veritabanı yapısı. Veri depolama ve sorgulama çözümleri.</p>
+                 <a href="https://github.com/eren123H/PMTP-Database" target="_blank">Projeyi Görüntüle</a>
+             </div>
+             <div class="project-card">
+                 <h3>Titanic Hayatta Kalma Tahmin Modeli</h3>
+                 <p>Python'da Pandas, Seaborn ve Matplotlib gibi kütüphaneler kullanılarak, Titanic yolcularının hayatta kalma olasılıklarını makine öğrenmesi ile modelleyen profesyonel bir veri bilimi projesi.</p>
+                 <a href="https://github.com/eren123H/titanicmodel" target="_blank">Projeyi Görüntüle</a>
+             </div>
+             <!-- İhtiyaç duydukça buraya yeni proje kartları ekleyebilirsiniz -->
+         </div>
+     </section>
+
+     <section id="contact" class="contact">
+         <h2>İletişime Geçin</h2>
+         <div class="contact-desc">Bir iş birliği, proje ya da sadece merhaba demek için bana ulaşabilirsiniz. Size en kısa sürede dönüş yapacağım.</div>
+         <div class="contact-info">
+             <div class="email-box">
+                 <i class="fas fa-envelope"></i>
+                 <span>bartineren34@gmail.com</span>
+             </div>
+         </div>
+         <div class="social-links">
+             <a href="https://www.linkedin.com/in/eren-u%C3%A7ar-0a340024a/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+             <a href="https://github.com/eren123H" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+             <a href="mailto:bartineren34@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Mail</a>
+         </div>
+     </section>
+
+     <footer>
+         <p>&copy; 2024 Eren Uçar. Tüm hakları saklıdır.</p>
+     </footer>
+
+     <script src="./script.js"></script>
+ </body>
+ </html>
