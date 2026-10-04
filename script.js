@@ -1,42 +1,35 @@
- document.addEventListener('DOMContentLoaded', () => {
-     // Navigasyon linkleri için yumuşak kaydırma
-     document.querySelectorAll('nav a').forEach(anchor => {
-         anchor.addEventListener('click', function (e) {
-             e.preventDefault();
-
-             document.querySelector(this.getAttribute('href')).scrollIntoView({
-                 behavior: 'smooth'
-             });
-         });
-     });
-
-     // Kaydırma sırasında animasyonlar (Intersection Observer API)
-     const observer = new IntersectionObserver((entries, observer) => {
-         entries.forEach(entry => {
-             if (entry.isIntersecting) {
-                 // Öğeler görünür hale geldiğinde 'visible' sınıfını ekle
-                 entry.target.classList.add('visible');
-                 // Animasyon bir kez çalıştıktan sonra gözlemlemeyi bırak
-                 observer.unobserve(entry.target);
-             }
-         });
-     }, {
-         threshold: 0.1 // Öğenin %10'u görünür olduğunda tetikle
-     });
-
-     // Animasyon uygulanacak öğeleri seç (anasayfa hariç tüm section'lar ve proje kartları)
-     document.querySelectorAll('section:not(#home), .project-card').forEach(element => {
-         element.classList.add('hidden'); // Başlangıçta 'hidden' sınıfını ekle
-         observer.observe(element); // Gözlemlemeye başla
-     });
-
-     // Header'a scroll efekti ekleme
-     const header = document.querySelector('header');
-     window.addEventListener('scroll', () => {
-         if (window.scrollY > 50) { // 50px aşağı kaydırınca
-             header.classList.add('scrolled');
-         } else {
-             header.classList.remove('scrolled');
-         }
-     });
- });
+// Progressive enhancement: content and navigation remain usable without JavaScript.
+const toggle = document.querySelector('.menu-toggle');
+const navigation = document.querySelector('#navigation');
+const mobile = window.matchMedia('(max-width: 760px)');
+function setMenu(open) {
+  toggle.setAttribute('aria-expanded', String(open));
+  navigation.hidden = mobile.matches && !open;
+  toggle.querySelector('span').textContent = open ? '−' : '＋';
+}
+toggle.hidden = false;
+setMenu(false);
+mobile.addEventListener('change', () => setMenu(false));
+toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+navigation.addEventListener('click', event => {
+  if (event.target.closest('a')) setMenu(false);
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && mobile.matches && toggle.getAttribute('aria-expanded') === 'true') {
+    setMenu(false);
+    toggle.focus();
+  }
+});
+if ('IntersectionObserver' in window) {
+  const links = [...navigation.querySelectorAll('a[href^="#"]')];
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      links.forEach(link => {
+        if (link.hash === `#${entry.target.id}`) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+  }, { rootMargin: '-15% 0px -65% 0px' });
+  document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
+}
