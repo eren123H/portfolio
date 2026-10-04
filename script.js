@@ -33,3 +33,54 @@ if ('IntersectionObserver' in window) {
   }, { rootMargin: '-15% 0px -65% 0px' });
   document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
 }
+
+// Keep the first paint lightweight: load motion after the page, on desktop only.
+const heroVideo = document.querySelector('.hero-video');
+const heroPoster = document.querySelector('.hero-poster');
+heroPoster.addEventListener('error', () => { heroPoster.hidden = true; });
+if (heroPoster.complete && !heroPoster.naturalWidth) heroPoster.hidden = true;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const connection = navigator.connection;
+let videoFailed = false;
+let pageReady = false;
+function syncHeroVideo() {
+  const shouldPlay = pageReady && !mobile.matches && !reducedMotion.matches &&
+    !connection?.saveData && !document.hidden && !videoFailed;
+  if (!shouldPlay) {
+    heroVideo.pause();
+    heroVideo.classList.remove('is-playing');
+    // Do not download video for static-only views, including preference changes.
+    if ((mobile.matches || reducedMotion.matches || connection?.saveData) && heroVideo.hasAttribute('src')) {
+      heroVideo.removeAttribute('src');
+      heroVideo.load();
+    }
+    return;
+  }
+  if (!heroVideo.hasAttribute('src')) {
+    heroVideo.muted = true;
+    heroVideo.src = heroVideo.dataset.src;
+  }
+  heroVideo.play().catch(() => {
+    // Autoplay restrictions retain the poster, with no broken UI.
+    heroVideo.classList.remove('is-playing');
+  });
+}
+heroVideo.addEventListener('playing', () => heroVideo.classList.add('is-playing'));
+heroVideo.addEventListener('error', () => {
+  videoFailed = true;
+  heroVideo.classList.remove('is-playing');
+  heroVideo.removeAttribute('src');
+  heroVideo.load();
+});
+mobile.addEventListener('change', syncHeroVideo);
+reducedMotion.addEventListener('change', syncHeroVideo);
+connection?.addEventListener('change', syncHeroVideo);
+document.addEventListener('visibilitychange', syncHeroVideo);
+function startHeroVideo() {
+  pageReady = true;
+  syncHeroVideo();
+}
+window.addEventListener('load', () => {
+  if ('requestIdleCallback' in window) window.requestIdleCallback(startHeroVideo, { timeout: 1500 });
+  else window.setTimeout(startHeroVideo, 0);
+}, { once: true });
