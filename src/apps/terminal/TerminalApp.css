@@ -1,0 +1,128 @@
+.interactive-terminal {
+  overflow-wrap: anywhere;
+}
+
+.terminal-guide h3 {
+  margin: 0 0 10px;
+  color: #e5dff8;
+  font: inherit;
+  font-weight: 600;
+}
+
+.terminal-guide .terminal-muted {
+  margin-bottom: 14px;
+}
+
+.terminal-command-guide {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 16px;
+  border: 1px solid #c4b8e421;
+  border-radius: 10px;
+  background: #c4b8e407;
+}
+
+.terminal-command-guide > div {
+  display: grid;
+  grid-template-columns: 85px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.terminal-command-guide dt {
+  color: #b4daca;
+}
+
+.terminal-command-guide dd {
+  margin: 0;
+  color: #c3bad3;
+}
+
+.interactive-terminal .terminal-keyboard-hint {
+  color: #afa3c4;
+  font-size: 10px;
+  line-height: 1.8;
+  margin: 10px 0 18px;
+}
+
+.terminal-command-line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.terminal-input-prompt {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.terminal-output {
+  white-space: pre-wrap;
+  font: inherit;
+  line-height: 1.9;
+  margin: 8px 0 22px;
+}
+
+.terminal-error {
+  color: #edb9c3;
+}
+
+.terminal-form {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid #c4b8e415;
+}
+
+.terminal-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 4px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #f1eaff;
+  caret-color: #cbb8f6;
+  font: inherit;
+}
+
+.terminal-form input::placeholder {
+  color: #a49bb8;
+}
+
+.terminal-form input:focus-visible {
+  outline: 1px solid #cbb8f680;
+  outline-offset: 2px;
+}
+
+.terminal-form button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid #c4b8e430;
+  border-radius: 8px;
+  background: #c4b8e40d;
+  color: #cabee8;
+}
+
+.terminal-form button:hover {
+  background: #c4b8e425;
+}
+
+@media (max-width: 700px) {
+  .terminal-command-guide {
+    padding: 12px;
+  }
+
+  .terminal-command-guide > div {
+    grid-template-columns: 66px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .terminal-form {
+    gap: 6px;
+  }
+}

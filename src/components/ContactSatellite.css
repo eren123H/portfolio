@@ -1,0 +1,415 @@
+.contact-satellite {
+  position: absolute;
+  left: clamp(16px, 2vw, 48px);
+  bottom: 174px;
+  width: 180px;
+  z-index: 5;
+}
+
+.contact-launcher {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 8px 8px;
+  border-radius: 22px;
+  background: transparent;
+  color: #4c4164;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.contact-orbit {
+  display: grid;
+  position: relative;
+  width: 160px;
+  height: 124px;
+  place-items: center;
+  isolation: isolate;
+}
+
+.contact-orbit::before {
+  position: absolute;
+  inset: 0 -12px;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    #f6d6ff94,
+    #d6bcff35 50%,
+    transparent 70%
+  );
+  content: "";
+}
+
+.contact-orbit-ring {
+  position: absolute;
+  width: 152px;
+  height: 66px;
+  border: 1px solid #ffffff90;
+  border-radius: 50%;
+  transform: rotate(-25deg);
+}
+
+.contact-sparkle {
+  position: absolute;
+  top: 6px;
+  right: 18px;
+  color: #fffafc;
+}
+
+.contact-orbit-dot {
+  position: absolute;
+  bottom: 25px;
+  left: 10px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid #ffffffb0;
+  border-radius: 50%;
+  background: #b6a2ed;
+  box-shadow: 0 0 12px #fff9;
+}
+
+.satellite-envelope {
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 70px;
+  border-radius: 10px;
+  transform: perspective(450px) rotateX(10deg) rotateY(-15deg) rotate(-12deg);
+  filter: drop-shadow(0 13px 10px #68518b24);
+  transition:
+    transform 350ms ease,
+    filter 350ms ease;
+  animation: contact-drift 4.8s ease-in-out;
+}
+
+.envelope-back,
+.envelope-front,
+.envelope-flap {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+}
+
+.envelope-back {
+  background: linear-gradient(145deg, #bbb2e7, #8f84c8);
+  box-shadow: inset 0 1px 0 #ffffffb0;
+}
+
+.envelope-letter {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 80px;
+  height: 52px;
+  padding: 12px;
+  border: 1px solid #fffc;
+  border-radius: 6px;
+  background: #fcf8ff;
+  transform: translateY(0) rotate(4deg);
+  transition: transform 350ms ease;
+}
+
+.envelope-letter > span {
+  display: block;
+  height: 3px;
+  margin-bottom: 5px;
+  border-radius: 2px;
+  background: #cec3e8;
+}
+
+.envelope-letter > span:last-child {
+  width: 55%;
+}
+
+.envelope-front {
+  z-index: 1;
+  clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(135deg, #f2e5ff, #c6b6ed 58%, #a5a4e5);
+  box-shadow:
+    inset 0 -2px 1px #8675b030,
+    inset 0 1px 0 white;
+}
+
+.envelope-flap {
+  z-index: 2;
+  clip-path: polygon(0 0, 100% 0, 50% 62%);
+  background: linear-gradient(165deg, #fff7ff, #d6c8f4);
+  transform-origin: top;
+  transition:
+    transform 350ms ease,
+    opacity 350ms ease;
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 33px;
+  left: 37px;
+  z-index: 3;
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border: 1px solid #fff8;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #a39cda, #797ebc);
+  color: white;
+  box-shadow: 0 2px 5px #7765a62e;
+}
+
+.contact-launcher-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 13px;
+  border: 1px solid #ffffffad;
+  border-radius: 25px;
+  background: #f6f0ff70;
+  box-shadow: 0 3px 10px #6b547a0d;
+  font-size: 11px;
+  font-weight: 500;
+  transition: background 200ms ease;
+}
+
+.contact-launcher:hover .satellite-envelope,
+.contact-launcher:focus-visible .satellite-envelope,
+.contact-satellite.is-open .satellite-envelope {
+  transform: perspective(450px) rotateX(-8deg) rotateY(12deg) rotate(-5deg)
+    translateY(-5px);
+  animation: none;
+}
+
+.contact-launcher:hover .envelope-letter,
+.contact-launcher:focus-visible .envelope-letter,
+.contact-satellite.is-open .envelope-letter {
+  transform: translateY(-15px) rotate(4deg);
+}
+
+.contact-launcher:hover .envelope-flap,
+.contact-launcher:focus-visible .envelope-flap,
+.contact-satellite.is-open .envelope-flap {
+  transform: scaleY(-0.8);
+  opacity: 0.6;
+}
+
+.contact-launcher:hover .contact-launcher-label {
+  background: #fdfaffb0;
+}
+
+.contact-panel {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 12px - var(--contact-panel-offset, 0px));
+  width: min(290px, calc(100vw - 36px));
+  max-height: calc(100svh - 90px);
+  overflow-y: auto;
+  padding: 21px;
+  border: 1px solid #ffffffe0;
+  border-radius: 22px;
+  background: #f9f5fff0;
+  box-shadow:
+    0 20px 60px #47345e24,
+    inset 0 1px 0 #fff;
+  backdrop-filter: blur(22px);
+  animation: contact-reveal 180ms ease-out;
+}
+
+.contact-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.contact-eyebrow {
+  font-size: 8px;
+  letter-spacing: 1.6px;
+  color: #8e7ca1;
+}
+
+.contact-panel h2 {
+  margin: 7px 0 0;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+  color: #45374f;
+}
+
+.contact-close {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border-radius: 50%;
+  background: #8f7ba410;
+  color: #897498;
+}
+
+.contact-panel > p {
+  margin: 12px 0 19px;
+  color: #82708d;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.contact-panel nav {
+  display: grid;
+  gap: 7px;
+}
+
+.contact-panel nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #a089b517;
+  border-radius: 11px;
+  background: #ffffff85;
+  text-decoration: none;
+  color: #5c486e;
+}
+
+.contact-panel nav a:hover {
+  background: #fff;
+  border-color: #ab97bd55;
+}
+
+.contact-link-icon {
+  display: grid;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid #ffffffe0;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #eee5fb, #e0ddf7);
+}
+
+.contact-panel strong,
+.contact-panel small {
+  display: block;
+}
+
+.contact-panel strong {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.contact-panel small {
+  margin-top: 4px;
+  color: #877592;
+  font-size: 9px;
+  overflow-wrap: anywhere;
+}
+
+.contact-link-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.contact-panel-location {
+  display: block;
+  margin-top: 16px;
+  color: #92819d;
+  font-size: 9px;
+}
+
+@keyframes contact-drift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  35% {
+    translate: 0 -9px;
+  }
+  70% {
+    translate: 0 3px;
+  }
+}
+
+@keyframes contact-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1100px) {
+  .desktop-companions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(48px, 10vw, 96px);
+    padding: 0 18px;
+    margin-bottom: 12px;
+  }
+
+  .desktop-companions .astronaut-scene {
+    flex: 0 0 160px;
+    width: 160px;
+    margin: 0;
+  }
+
+  .contact-satellite {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    flex: 0 1 180px;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .desktop-companions {
+    gap: 48px;
+  }
+
+  .desktop-companions .astronaut-scene {
+    flex-basis: 125px;
+    width: 125px;
+  }
+
+  .contact-satellite {
+    flex-basis: 154px;
+  }
+
+  .contact-orbit {
+    width: 135px;
+    height: 105px;
+  }
+
+  .contact-orbit-ring {
+    width: 130px;
+  }
+
+  .satellite-envelope {
+    scale: 0.85;
+  }
+
+  .contact-launcher-label {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 365px) {
+  .satellite-envelope {
+    scale: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-satellite *,
+  .contact-satellite .contact-panel {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .contact-satellite .satellite-envelope,
+  .contact-satellite .envelope-letter,
+  .contact-satellite .envelope-flap {
+    transform: none;
+  }
+}

@@ -1,0 +1,165 @@
+.astronaut-scene {
+  position: absolute;
+  right: clamp(14px, 3vw, 70px);
+  bottom: 145px;
+  width: clamp(190px, 21vw, 290px);
+  aspect-ratio: 280 / 330;
+  pointer-events: none;
+  isolation: isolate;
+  animation: astronaut-arrive 700ms ease-out both;
+}
+
+.astronaut-glow {
+  position: absolute;
+  inset: 12% -15% 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #f0e4ff85, #c1b0ef20 55%, transparent 70%);
+}
+
+.welcome-astronaut {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 12px 14px #60588b18);
+}
+
+.astronaut-float {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: astronaut-float 6s ease-in-out infinite;
+}
+
+.astronaut-wave {
+  transform-origin: 173px 158px;
+  animation: astronaut-wave 7s ease-in-out infinite;
+}
+
+.astronaut-stars {
+  animation: astronaut-twinkle 4s ease-in-out infinite;
+}
+
+.astronaut-greeting {
+  position: absolute;
+  z-index: 1;
+  top: 12%;
+  left: -12%;
+  padding: 13px 18px;
+  border: 1px solid #ffffffdc;
+  border-radius: 17px 17px 4px 17px;
+  background: #f9f7ffe6;
+  box-shadow: 0 6px 25px #5c468414, inset 0 1px 0 white;
+  color: #514766;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  animation: astronaut-greeting 9s ease-in-out both;
+}
+
+.greeting-star {
+  margin-right: 5px;
+  color: #9680c8;
+}
+
+.astronaut-motion-toggle {
+  position: absolute;
+  right: 12%;
+  bottom: 7%;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  background: #f6f1ff70;
+  color: #726386;
+  pointer-events: auto;
+}
+
+.astronaut-motion-toggle:hover {
+  background: #fff9;
+}
+
+.astronaut-scene.is-paused,
+.astronaut-scene.is-paused * {
+  animation-play-state: paused;
+}
+
+@keyframes astronaut-arrive {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes astronaut-float {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes astronaut-wave {
+  0%, 8%, 28%, 100% { transform: rotate(0); }
+  13%, 23% { transform: rotate(15deg); }
+  18% { transform: rotate(-8deg); }
+}
+
+@keyframes astronaut-twinkle {
+  0%, 100% { opacity: .4; }
+  50% { opacity: .9; }
+}
+
+@keyframes astronaut-greeting {
+  0% { opacity: 0; transform: translateY(7px) scale(.96); }
+  7%, 85% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-5px) scale(.98); }
+}
+
+@media (max-width: 1100px) {
+  .astronaut-scene {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    width: 180px;
+    margin: 0 0 12px 65px;
+  }
+
+  .welcome-area {
+    flex: 1 0 auto;
+    min-height: 440px;
+    padding-top: 35px;
+    padding-bottom: 20px;
+  }
+
+  .astronaut-greeting {
+    left: -45%;
+    top: 10%;
+    padding: 10px 13px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 700px) {
+  .astronaut-scene {
+    width: 155px;
+    margin-bottom: 10px;
+  }
+
+  .welcome-area {
+    padding-top: 32px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astronaut-scene,
+  .astronaut-scene * {
+    animation: none !important;
+  }
+
+  .astronaut-greeting {
+    opacity: 1;
+  }
+
+  .astronaut-motion-toggle {
+    display: none;
+  }
+}

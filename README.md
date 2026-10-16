@@ -1,25 +1,59 @@
-# Eren Uçar · Portfolio
+# EREN.OS
 
-Personal portfolio for **IT • Software Development • Data Analytics**, written in semantic HTML, CSS and vanilla JavaScript. No build step or runtime dependencies.
+The first visual prototype of a desktop-inspired developer portfolio.
 
-## Preview
+## Local preview
 
-Run `python3 -m http.server 8000` in this directory and open http://localhost:8000. GitHub Pages serves `index.html` from the repository root; all local asset URLs are relative to preserve `/portfolio/` hosting.
+Requires Node.js 20.19+ or a supported newer LTS release.
 
-## Content sources
+```sh
+npm ci
+npm run dev
+```
 
-- Experience, education and skills: the supplied updated `Eren_Ucar_CV (2).pdf`.
-- [Help Desk](https://github.com/eren123H/it-helpdesk): README and frontend/backend code. Preview from `docs/screenshots/login.png`.
-- [National team analysis](https://github.com/eren123H/Veri-Analizi): README, Excel and presentation. Preview from `images/aylik-galibiyet-oranlari.png`. Data ends in 2024; credited as a team project.
-- [Personnel salary tracking](https://github.com/eren123H/Personel-Maas-Takip): README, ASP.NET/C# source and SQL data sources. Preview is `word/media/image1.jpeg` from `KullaniciKlavuz.docx`.
-- [Titanic](https://github.com/eren123H/titanicmodel): README and `Proje1.ipynb`. Preview is the saved Random Forest ROC output, not a recreated chart. No model accuracy guarantees are stated.
+Open the local URL printed by Vite, normally http://127.0.0.1:5173/.
 
-Images are resized WebP copies of original assets. CV is served from `assets/Eren_Ucar_CV.pdf`; the original tracked CV path is also updated to retain older inbound links.
+```sh
+npm run build
+npm run preview
+```
 
-## Accessibility and performance
+The production output is in `dist/` and uses `/portfolio/` as its base path. The development server keeps relative paths for local use.
 
-Navigation works without JavaScript. JavaScript adds the mobile disclosure menu, Escape handling and active section indication. Keyboard focus, skip navigation, reduced motion preference, image alternatives and explicit image dimensions are provided. Project images load lazily. Fonts use the system stack; no external trackers, font services or icon libraries are required.
+## GitHub Pages
 
-## Verification
+The `.github/workflows/deploy.yml` workflow runs tests, builds the application and publishes `dist/` when `main` changes. GitHub Pages must use **GitHub Actions** as its source. The public URL is https://eren123h.github.io/portfolio/.
 
-Reviewed at desktop 1440 px and mobile 390/320 px. Checked horizontal overflow, mobile menu open/close, browser console, image loading, local paths/anchors and JavaScript syntax. External GitHub destinations correspond to inspected repositories. LinkedIn is the user-provided profile URL.
+Original static-portfolio files remain in the repository for reference; only the Vite build output is published by the new workflow. Local QA screenshots in `docs/*.jpg` are not committed.
+
+## Prototype scope
+
+- Brief, skippable startup screen with a replaceable EU text placeholder.
+- CSS blue-purple wallpaper, light glass menu bar and seven dock apps.
+- Welcome actions open Projects and Terminal.
+- Terminal opens with a Turkish command guide. Supports `help`, `about`, `projects`, `skills`, `clear`, Enter to submit, and Up/Down command history with draft restoration. Commands return local portfolio text only; user input is never executed as code or shell commands. Terminal history resets when its window is closed.
+- One active app window at a time; close using the red control or Escape.
+- Keyboard focus remains inside the open window and returns on close.
+- Full-screen app presentation on mobile; reduced motion follows device preferences.
+- A lightweight SVG astronaut floats and waves beside the welcome view. Its greeting appears briefly on startup; animation can be paused and respects reduced motion preferences. On smaller screens it moves below the welcome content to keep text and controls clear.
+- A floating envelope opens a light glass contact card with verified email, LinkedIn and GitHub links. Hover/focus opens its flap; the initial drift lasts under five seconds. The card supports keyboard use, Escape, outside-click dismissal and reduced motion, and stays inside the viewport. On smaller screens the envelope sits beside the astronaut below the welcome content.
+
+Portfolio content now comes from the user-provided CV and the existing `eren123H/portfolio` repository. Projects include four original screenshots, descriptions, technology tags and verified public repository links. About includes education, two internships and professional contact links. Skills are grouped with supporting work; Resume offers the original PDF and a page preview. See `docs/content-sources.md` for provenance.
+
+The EU logo is still a replaceable placeholder. Yellow and green window controls are decorative. Minimize, maximize, dragging, multiple windows and editable settings are outside this milestone.
+
+Run `npm test` for the terminal command tests and `npm run build` for TypeScript and the production build.
+
+## Source layout
+
+- `src/components/Desktop.tsx`: menu bar, welcome view and dock.
+- `src/components/AppWindow.tsx`: reusable dialog and keyboard handling.
+- `src/components/Logo.tsx`: replaceable logo placeholder.
+- `src/apps/AppContent.tsx`: individual application previews.
+- `src/data/apps.ts`: application metadata.
+- `src/data/portfolio.ts`: shared profile, projects, experience and skills, also used by Terminal.
+- `public/projects/`: project images from the existing portfolio.
+- `public/resume/`: user-provided CV and its page preview.
+- `src/styles.css`: visual tokens, wallpaper and responsive styling.
+
+No backend, external font requests, AI integration or GitHub API is used.
