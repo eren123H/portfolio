@@ -607,8 +607,18 @@ h1 {
   border: 1px solid #00000010;
 }
 .control-close {
-  background: #fa6d68;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: -12px;
+  padding: 0;
+  background: transparent;
   color: #8a2523;
+}
+.control-close-dot {
+  background: #fa6d68;
+  pointer-events: none;
 }
 .control-minimize {
   background: #f6c156;
@@ -1140,6 +1150,25 @@ h1 {
     position: static;
     margin-top: 20px;
     font-size: 7px;
+  }
+}
+
+@media (min-width: 701px) and (max-height: 600px) {
+  .window-layer {
+    padding: 12px 24px;
+  }
+  .app-window {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100svh - 66px);
+  }
+  .window-titlebar,
+  .window-status {
+    flex-shrink: 0;
+  }
+  .window-content {
+    min-height: 0;
+    max-height: none;
   }
 }
 

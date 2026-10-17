@@ -42,7 +42,11 @@ export function MenuBar() {
   );
 }
 
-export function Welcome({ onOpen }: { onOpen: (id: AppId) => void }) {
+export function Welcome({
+  onOpen,
+}: {
+  onOpen: (id: AppId, trigger?: HTMLElement) => void;
+}) {
   return (
     <main id="main" className="welcome-area">
       <motion.section
@@ -71,12 +75,15 @@ export function Welcome({ onOpen }: { onOpen: (id: AppId) => void }) {
           ))}
         </p>
         <div className="welcome-actions">
-          <button className="primary-button" onClick={() => onOpen("projects")}>
+          <button
+            className="primary-button"
+            onClick={(event) => onOpen("projects", event.currentTarget)}
+          >
             Projelerimi Keşfet <ArrowUpRight size={17} />
           </button>
           <button
             className="secondary-button"
-            onClick={() => onOpen("terminal")}
+            onClick={(event) => onOpen("terminal", event.currentTarget)}
           >
             <Command size={16} /> Terminali Aç
           </button>
@@ -94,7 +101,7 @@ export function Dock({
   onOpen,
 }: {
   openApps: AppId[];
-  onOpen: (id: AppId) => void;
+  onOpen: (id: AppId, trigger?: HTMLElement) => void;
 }) {
   return (
     <footer className="desktop-footer">
@@ -108,7 +115,7 @@ export function Dock({
             className={`dock-item ${index === 6 ? "dock-separated" : ""}`}
           >
             <button
-              onClick={() => onOpen(app.id)}
+              onClick={(event) => onOpen(app.id, event.currentTarget)}
               aria-label={`${app.name} uygulamasını aç`}
               aria-pressed={openApps.includes(app.id)}
               className="dock-button"

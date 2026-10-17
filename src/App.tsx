@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   MotionConfig,
@@ -19,7 +19,28 @@ export default function App() {
     () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
   const [activeApp, setActiveApp] = useState<AppId | null>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
+  const desktopRef = useRef<HTMLDivElement>(null);
+  const openWindow = useCallback(
+    (id: AppId, trigger?: HTMLElement) => {
+      if (activeApp === null) {
+        returnFocusRef.current = trigger ?? (document.activeElement as HTMLElement);
+      }
+      setActiveApp(id);
+    },
+    [activeApp],
+  );
   const closeWindow = useCallback(() => setActiveApp(null), []);
+  const restoreFocus = () => {
+    if (activeApp !== null) return;
+    const trigger = returnFocusRef.current;
+    const target =
+      trigger?.isConnected && desktopRef.current?.contains(trigger)
+        ? trigger
+        : desktopRef.current?.querySelector<HTMLButtonElement>(".primary-button");
+    target?.focus({ preventScroll: true });
+    returnFocusRef.current = null;
+  };
   useEffect(() => {
     const timer = window.setTimeout(() => setBooting(false), 1100);
     return () => clearTimeout(timer);
@@ -35,24 +56,24 @@ export default function App() {
           <div className="wallpaper-ribbon ribbon-two" />
           <div className="wallpaper-grain" />
         </div>
-        <div className="desktop-body" inert={booting || !!app}>
+        <div className="desktop-body" ref={desktopRef} inert={booting || !!app}>
           <a className="skip-link" href="#main">
             İçeriğe geç
           </a>
           <MenuBar />
-          <Welcome onOpen={setActiveApp} />
+          <Welcome onOpen={openWindow} />
           {!booting && (
             <div className="desktop-companions">
               <ContactSatellite />
               <WelcomeAstronaut />
             </div>
           )}
-          <Dock onOpen={setActiveApp} openApps={activeApp ? [activeApp] : []} />
+          <Dock onOpen={openWindow} openApps={activeApp ? [activeApp] : []} />
         </div>
-        <AnimatePresence>
+        <AnimatePresence onExitComplete={restoreFocus}>
           {app && (
             <AppWindow key={app.id} app={app} onClose={closeWindow}>
-              <AppContent id={app.id} onOpen={setActiveApp} />
+              <AppContent id={app.id} onOpen={openWindow} />
             </AppWindow>
           )}
         </AnimatePresence>

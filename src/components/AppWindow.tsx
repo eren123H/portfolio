@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { motion } from "motion/react";
+import { motion, useIsPresent } from "motion/react";
 import { Minus, Plus, X } from "lucide-react";
 import type { DesktopApp } from "../data/apps";
 import type { ReactNode } from "react";
@@ -14,8 +14,9 @@ export function AppWindow({
   onClose: () => void;
 }) {
   const windowRef = useRef<HTMLElement>(null);
+  const isPresent = useIsPresent();
   useEffect(() => {
-    const previousFocus = document.activeElement as HTMLElement | null;
+    if (!isPresent) return;
     const initialFocus =
       windowRef.current?.querySelector<HTMLElement>("[data-initial-focus]") ??
       windowRef.current;
@@ -48,9 +49,8 @@ export function AppWindow({
     document.addEventListener("keydown", handleKey);
     return () => {
       document.removeEventListener("keydown", handleKey);
-      previousFocus?.focus();
     };
-  }, [onClose]);
+  }, [onClose, isPresent]);
   return (
     <motion.div
       className="window-layer"
@@ -74,11 +74,13 @@ export function AppWindow({
         <header className="window-titlebar">
           <div className="window-controls">
             <button
-              className="control control-close"
+              className="control-close"
               aria-label={`${app.name} uygulamasını kapat`}
               onClick={onClose}
             >
-              <X size={9} />
+              <span className="control control-close-dot" aria-hidden="true">
+                <X size={9} />
+              </span>
             </button>
             <span
               className="control control-minimize"
